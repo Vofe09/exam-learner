@@ -1,0 +1,5 @@
+{
+  "tests": [
+    { "title": "История", "file": "history.json" }
+  ]
+}
