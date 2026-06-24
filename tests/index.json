@@ -1,5 +1,6 @@
 {
   "tests": [
-    { "title": "История", "file": "history.json" }
+    { "title": "История", "file": "history.json" },
+     { "title": "Биология", "file": "biology.json" }
   ]
 }
