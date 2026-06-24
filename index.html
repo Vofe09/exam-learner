@@ -322,24 +322,33 @@
       }
     }
 
-    function validateTestData(testData) {
-      if (!testData || !Array.isArray(testData.questions)) {
-        throw new Error('Неверный формат теста');
+  function validateTestData(testData) {
+    if (!testData || !Array.isArray(testData.questions)) {
+      throw new Error('Неверный формат теста');
+    }
+
+    testData.questions.forEach((question, index) => {
+      if (
+        !question.text ||
+        !Array.isArray(question.options) ||
+        question.options.length < 2
+      ) {
+        throw new Error(
+          `Вопрос ${index + 1} должен содержать текст и минимум 2 варианта ответа`
+        );
       }
 
-      testData.questions.forEach((question, index) => {
-        if (!question.text || !Array.isArray(question.options) || question.options.length !== 4) {
-          throw new Error(`Вопрос ${index + 1} должен содержать текст и 4 варианта ответа`);
-        }
-        if (
-          typeof question.correctIndex !== 'number' ||
-          question.correctIndex < 0 ||
-          question.correctIndex > 3
-        ) {
-          throw new Error(`Вопрос ${index + 1} содержит неверный correctIndex`);
-        }
-      });
-    }
+      if (
+        typeof question.correctIndex !== 'number' ||
+        question.correctIndex < 0 ||
+        question.correctIndex >= question.options.length
+      ) {
+        throw new Error(
+          `Вопрос ${index + 1} содержит неверный correctIndex`
+        );
+      }
+    });
+  }
 
     function showNextQuestion(firstLoad = false) {
       if (!activeTest) return;
